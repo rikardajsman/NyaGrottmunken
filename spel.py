@@ -1,19 +1,87 @@
-print("Hej spelet!")
-print("* Välkommen till grottan, munk. *")
-print("Du vaknar ensam i mörkret och måste klura dig ut…\n")
-print("Du har 3 liv. Misslyckas du tre gånger skickas du tillbaka till början.\n")
-input("Tryck ENTER för att börja...")
+import random
+import time
 
-print("Grottmunkenspelet")
-print("")
+def menu():
+    print("\n=== Grottmunkenspelet ===\n")
+    print("[1] Starta spelet")
+    print("[2] Inställningar")
+    print("[3] Hemligt läge")
+    print("[4] Statistik")
+    print("[0] Avsluta")
 
+    choice = input("Välj ett alternativ: ")
+
+    if choice == "1":
+        start_game()
+    elif choice == "2":
+        settings()
+    elif choice == "3":
+        secret_mode()
+    elif choice == "4":
+        statistik()
+    elif choice == "0":
+        print("Hejdå!")
+        exit()
+    else:
+        print("Fel val! Försök igen.")
+        menu()
+
+
+def start_game():
+    print("\nSpelet startar...")
+    print("Du vaknar i en mörk grotta. Någon viskar ditt namn...")    
+    input("Tryck Enter för att återvända till menyn.")
+    menu()
+
+
+# Val nummer 2
+def settings():
+    print("\n=== Inställningar ===")
+    print("Inga inställningar finns ännu :)")
+    input("Tryck Enter för att återvända till menyn.")
+    menu()
+
+
+def secret_mode():
+    print("\n*** Hemligt läge aktiverat! ***")
+    print("Skåda hemligheten https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1")
+    input("Tryck Enter för att återvända till menyn.")
+    menu()
+
+def statistik():
+    print("\n===Här är tabellen för all-time.===")
+    print("Du kanske kan bli en av de som har klarat spelet bäst")
+    menu()
+
+menu()
+
+
+menu()
 score = 0
+hp = 0
+chests = 0
 
-print("1. Vad är 2+7?")
-answer1 = input("Ange ditt svar ")
+def add_chest(chests):
+    if chests <=5:
+        chests += 1
+    else:
+        print("Dina kistor är maximerade!")
+    return chests
 
-if answer1 == "9":
-    score += 1
+# Trycka tabellen
+print("+--------+------+--------+")
+print("| Score  |  HP  | Chests |")
+print("+--------+------+--------+")
+print(f"| {score:<1000} | {hp:<100000} | {chests:<6} |")
+print("+--------+------+--------+")
 
-print("Du fick " + str(score +"/1"))
+
+quiz_list = [
+    ("Vad heter vår statsminister?", ["ulf kristersson", "kristersson", "ulf","Ulf Kristersson"]),
+    ("Vad hette Sveriges senaste union?", ["sverige-norgeunionen", "sverige-norge", "sverige-norge union", "sverige norge"]),
+    ("Vilket framgångsrikt slag hände 1632 som Sverige vann, men på bekostnad av vår kung?", ["slaget vid lützen", "slaget vid lutzen", "lutzen", "lützen", "slaget lutzen","Slaget vid Lützen","Slaget vid Lutzen"]),
+    ("När släpptes låten Swedish Fika?", ["2017"]),
+]
+print("Svara rätt för att få poäng och ibland en kista (max 5).")
+print("Du har 3 HP. Fel svar tar -1 HP.\n")
 
