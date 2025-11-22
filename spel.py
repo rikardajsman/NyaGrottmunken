@@ -1,6 +1,16 @@
 import random
 import time
 
+
+quiz_list = [
+    ("Vad heter vår statsminister?", ["ulf kristersson", "kristersson", "ulf","Ulf Kristersson"]),
+    ("Vad hette Sveriges senaste union?", ["sverige-norgeunionen", "sverige-norge", "sverige-norge union", "sverige norge"]),
+    ("Vilket framgångsrikt slag hände 1632 som Sverige vann, men på bekostnad av vår kung?", ["slaget vid lützen", "slaget vid lutzen", "lutzen", "lützen", "slaget lutzen","Slaget vid Lützen","Slaget vid Lutzen"]),
+    ("När släpptes låten Swedish Fika?", ["2017"]),
+]
+print("Svara rätt för att få poäng och ibland en kista (max 5).")
+print("Du har 3 HP. Fel svar tar -1 HP.\n")
+
 def menu():
     print("\n=== Grottmunkenspelet ===\n")
     print("[1] Starta spelet")
@@ -10,24 +20,14 @@ def menu():
     print("[0] Avsluta")
 
     choice = input("Välj ett alternativ: ")
-
-    if choice == "1":
-        start_game()
-    elif choice == "2":
-        settings()
-    elif choice == "3":
-        secret_mode()
-    elif choice == "4":
-        statistik()
-    elif choice == "0":
-        print("Hejdå!")
-        exit()
-    else:
-        print("Fel val! Försök igen.")
-        menu()
-
+    return choice
 
 def start_game():
+    global score, hp, chests
+    score = 0
+    hp = 0
+    chests = 0
+
     print("\nSpelet startar...")
     print("Du vaknar i en mörk grotta. Någon viskar ditt namn...")    
     input("Tryck Enter för att återvända till menyn.")
@@ -51,15 +51,10 @@ def secret_mode():
 def statistik():
     print("\n===Här är tabellen för all-time.===")
     print("Du kanske kan bli en av de som har klarat spelet bäst")
+    print("Spelutvecklarna ")
     menu()
 
 menu()
-
-
-menu()
-score = 0
-hp = 0
-chests = 0
 
 def add_chest(chests):
     if chests <=5:
@@ -72,16 +67,21 @@ def add_chest(chests):
 print("+--------+------+--------+")
 print("| Score  |  HP  | Chests |")
 print("+--------+------+--------+")
-print(f"| {score:<1000} | {hp:<100000} | {chests:<6} |")
+print(f"| {score:<6} | {hp:<100000} | {chests:<6} |")
 print("+--------+------+--------+")
 
-
-quiz_list = [
-    ("Vad heter vår statsminister?", ["ulf kristersson", "kristersson", "ulf","Ulf Kristersson"]),
-    ("Vad hette Sveriges senaste union?", ["sverige-norgeunionen", "sverige-norge", "sverige-norge union", "sverige norge"]),
-    ("Vilket framgångsrikt slag hände 1632 som Sverige vann, men på bekostnad av vår kung?", ["slaget vid lützen", "slaget vid lutzen", "lutzen", "lützen", "slaget lutzen","Slaget vid Lützen","Slaget vid Lutzen"]),
-    ("När släpptes låten Swedish Fika?", ["2017"]),
-]
-print("Svara rätt för att få poäng och ibland en kista (max 5).")
-print("Du har 3 HP. Fel svar tar -1 HP.\n")
-
+while True:
+    choice = menu()
+    if choice == "1":
+        start_game()
+    elif choice == "2":
+        settings()
+    elif choice == "3":
+        secret_mode()
+    elif choice == "4":
+        statistik()
+    elif choice == "0":
+        print("Hejdå!")
+        break
+    else:
+        print("Fel val! Försök igen.")
