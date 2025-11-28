@@ -5,6 +5,14 @@ class Spelare:
         self.name = name
         self.grott_name = grott_name
 
+        self.strength = 10
+        self.hp = 100
+        self.inventory = []
+        self.level = 1
+
+def add_item(self, item):
+    self.inventory.append(item)
+    
 def new_player():
     name = input('Ange ditt namn: ')
     grott_name = input('Ange ditt grottnamn: ')
@@ -26,6 +34,30 @@ quiz_list = [
      ["2017"]),
 ]
 
+quiz_list1 = [
+    ("Vilket år vad det bästa året för Svenska empiriet?",
+    ["1658"]),
+
+    ("Vilket schweizisk stad anses vara miljadärernas gömställe?",
+     ["Gstaad"]),
+    
+    ("Vilket lag är närmast oss från Åva",
+     ["Täby FK"]),
+    
+    ("Vilken Youtuber från TE24D har mest prenumeranter?",
+    ["Teduded"]),
+]
+
+quiz_list2 = [
+    ("Vad heter programmeringsspråket som denna program är byggd på?",
+    ["Python"]),
+
+    ("Vad är huvudstaden i Marshallöarna?",
+    ["Majuro"]),
+]
+
+all_quizes = [quiz_list, quiz_list1, quiz_list2]
+
 score = 0
 hp = 3
 chests = 0
@@ -46,7 +78,8 @@ def start_game():
     score = 0
     hp = 3
     chests = 0
-
+    current_quiz = all_quizes[p1.level - 1]
+    print(f"Nivå {p1.level} startar")
     for question, correct_answers in quiz_list:
 
         if hp <= 0:
@@ -77,10 +110,9 @@ def start_game():
         print(f"HP: {hp}")
         print(f"Kistor: {chests}")
 
-
+        dor_event()
         boss_fight()
-
-    input("\nTryck Enter för att återvända till menyn.")
+        return
 
 
 def dor_event():
@@ -91,10 +123,9 @@ def dor_event():
     else:
         print("Du ignorerar dörren och går vidare.")
 
-
 def boss_fight():
     global hp, score, chests
-    boss_hp = 6
+    boss_hp = 1+p1.level
     print("\nDu möter en boss! Striden börjar...")
 
     while boss_hp > 0 and hp > 0:
@@ -123,6 +154,28 @@ def boss_fight():
         if chests < 5:
             chests += 1
             print("Du hittar en extra kista som belöning!")
+            print("Du klarade av nivån och fortsätter till nästa nivå?")
+            p1.level += 1
+
+            start_game()
+            return
+
+def settings():
+    print("\n=== Inställningar ===")
+    print("Inga inställningar finns ännu :)")
+    input("Tryck Enter för att återvända till menyn.")
+
+def secret_mode():
+    print("\n*** Hemligt läge aktiverat! ***")
+    print("Skåda hemligheten: https://www.youtube.com/watch?v=xvFZjo5PgG0")
+    print("Där uppe är hemligheten.")
+    input("Tryck Enter för att återvända till menyn.")
+
+def statistik():
+    print("\n=== Här är tabellen för all-time. ===")
+    print("Du kanske kan bli en av de som har klarat spelet bäst!")
+    print("Spelutvecklarna")
+    input("Tryck Enter för att återvända till menyn.")
 
 while True:
     choice = menu()
@@ -140,20 +193,3 @@ while True:
     else:
         print("Fel val! Försök igen.")
 
-# ---------------- MENYVAL ----------------
-def settings():
-    print("\n=== Inställningar ===")
-    print("Inga inställningar finns ännu :)")
-    input("Tryck Enter för att återvända till menyn.")
-
-def secret_mode():
-    print("\n*** Hemligt läge aktiverat! ***")
-    print("Skåda hemligheten: https://www.youtube.com/watch?v=xvFZjo5PgG0")
-    print("Där uppe är hemligheten.")
-    input("Tryck Enter för att återvända till menyn.")
-
-def statistik():
-    print("\n=== Här är tabellen för all-time. ===")
-    print("Du kanske kan bli en av de som har klarat spelet bäst!")
-    print("Spelutvecklarna")
-    input("Tryck Enter för att återvända till menyn.")
