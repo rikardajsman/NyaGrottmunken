@@ -80,7 +80,7 @@ def start_game():
     chests = 0
     current_quiz = all_quizes[p1.level - 1]
     print(f"Nivå {p1.level} startar")
-    for question, correct_answers in quiz_list:
+    for question, correct_answers in current_quiz:
 
         if hp <= 0:
             print("\nDu svimmar i mörkret... GAME OVER!")
